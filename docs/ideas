@@ -1,0 +1,22 @@
+only one enemy "type" - organic
+
+but have different behaviour and attributes (hidden)
+
+eg.
+
+BEHAVIOURS:
+
+aggressive (will follow player)
+cautious (won't)
+intelligent (knows where mines are)
+
+
+
+ATTRIBUTES:
+
+strong (hits deal 2x HP per hit)
+fast (every second turn, moves 2 squares)
+weakened (can't hit 2x in a row)
+slow (can't move 2x in a row)
+healthy (can survive a mine explosion)
+stealthy (player won't detect until they are adjacent)

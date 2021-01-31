@@ -1,0 +1,45 @@
+default controls [keys can be remapped but not functions]
+
+
+ACTIONS (take a turn)
+
+yuhjklbn movement/drill (vi/rogue - like)
+(move into excavated squares, otherwise drill)
+
+> -> drill down (only in soft material)
+
+
+NON-ACTIONS (do not take a turn)
+
+s -> status (prints your current health, depth.) (Killed enemies?? Time playing??) 
+i -> inventory (just amount of minerals you have)
+m -> map view (can't see enemies but can see uncovered squares and numbers, scrollable)
+
+
+Esc -> save and quit
+
+
+
+
+
+
+default map symbols [can be configured]
+
+@ - player
+# - unexcavated ground
+. - exploded mine
+> - soft material
+1, 2, 3 etc. - Number of explosives in the near vicinity (3x3 grid)
+  - excavated ground, no explosives nearby
+[" or = - edge of explorable terrain] possibly not needed
+! - enemy organic
+
+contrived example (real map would not be this small):
+
+
++================+
+"###############."
+"###    >#####2##"
+"### @   ##### ##"
+"###1       1 !!."
++================+
