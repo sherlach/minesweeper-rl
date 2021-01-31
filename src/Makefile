@@ -28,7 +28,7 @@ msweaper: $(OBJS)
 # Clean up before a fresh build
 #
 clean:
-	-rmv -f *.o sil
+	-rm -fv *.o msweaper 
 
 
 # Generate deps
