@@ -19,6 +19,9 @@ int init() {
 	if (setup() != 0) {
 		return winsize;
 	}
+	cbreak();
+	//noecho();
+	keypad(stdscr, TRUE);
 	return 0;
 }
 

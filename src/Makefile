@@ -18,7 +18,7 @@ all: msweaper
 # Install the game
 #
 install: msweaper
-	cp msweaper ..
+	mv msweaper ..
 
 # Build the game
 #
@@ -28,7 +28,7 @@ msweaper: $(OBJS)
 # Clean up before a fresh build
 #
 clean:
-	-rm -fv *.o msweaper 
+	-rm -fv *.o 
 
 
 # Generate deps

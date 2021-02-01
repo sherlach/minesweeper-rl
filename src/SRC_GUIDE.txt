@@ -1,0 +1,5 @@
+Makefile - automated build (make install clean)
+config.h - set various preferences (at compile time)
+main.c - main function
+display.c - a lot of the ncurses stuff. handling of windows (outputs and inputs)
+display.h - see display.c

@@ -31,6 +31,9 @@ int setup_windows(WINDOW *map, WINDOW *status) {
 	/* finally, initialise the visual element/borders of them */
 	box(map, 0, 0);
 	wprintw(status, "> ");
+	wrefresh(map);
+	wrefresh(status);
+	wgetch(map);
 	return 0;
 }
 
