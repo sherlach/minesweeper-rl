@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include "config.h"
+#include "display.h"
 
 enum errortypes{none, winsize};
 
@@ -7,7 +8,7 @@ int init();
 int close();
 
 int main(int argc, char* argv[]) {
-	if (init() != 0) { 
+	if (init() == winsize) { 
 		return winsize;
 	}
 	close();
@@ -15,11 +16,8 @@ int main(int argc, char* argv[]) {
 }
 
 int init() {
-	initscr();
-	if (BOX_X > COLS || BOX_Y > LINES) {
-		close();
-		fprintf(stderr, "Window size error. %d > %d or %d > %d.", BOX_X, COLS, BOX_Y, LINES);
-		return -1;
+	if (setup() != 0) {
+		return winsize;
 	}
 	return 0;
 }

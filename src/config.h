@@ -30,8 +30,8 @@
  */
 
 
-#define BOX_X 40
-#define BOX_Y 40
+#define BOX_X 70
+#define BOX_Y 20
 
 
 #endif

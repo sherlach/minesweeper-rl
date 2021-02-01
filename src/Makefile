@@ -1,8 +1,8 @@
 CC = gcc 
-CFLAGS = -Wall -O2 #-fno-strength-reduce -pipe -D"USE_GCU"
+CFLAGS = -Wall #-O2 #-fno-strength-reduce -pipe -D"USE_GCU"
 LIBS = -lncurses -ltinfo
 #LDFLAGS = -s
-
+DEBUG = -ggdb
 
 SRCS = display.c main.c 
 
@@ -23,7 +23,7 @@ install: msweaper
 # Build the game
 #
 msweaper: $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o msweaper $(OBJS) $(LIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o msweaper $(DEBUG) $(OBJS) $(LIBS)
 
 # Clean up before a fresh build
 #
