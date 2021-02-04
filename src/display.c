@@ -39,9 +39,9 @@ int setup_windows(WINDOW **map, WINDOW **status) {
 }
 
 int update_status(char *input_str, WINDOW *status) {
+	wmove(status, 0, 0);
 	wprintw(status, "> %s", input_str);
 	wrefresh(status);
-	wgetch(status);
 	return 0;
 }
 
@@ -53,8 +53,21 @@ int update_status(char *input_str, WINDOW *status) {
 int main_mode_keys(WINDOW *win) {
 	
 	switch(wgetch(win)) {
-		//case NORTH:
-		//	update_status("north");
+		case NORTH:
+			update_status("north", win);
+			return 0;	
+		case SOUTH:
+			update_status("south", win);
+			return 0;	
+		case WEST:
+			update_status("west ", win); // hack
+			return 0;	
+		case EAST:
+			update_status("east ", win);
+			return 0;	
+		default:
+			update_status("invalid case", win);
+			return 0;
 	}
-	return 0;
+	return 1;
 }

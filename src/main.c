@@ -42,7 +42,7 @@ int main_game(WINDOW* map, WINDOW* status) {
 	enum gamestate{state_main, state_map, state_invent};
 	int returncode = 0; 
 	while (!returncode) {
-		
-	update_status("ol", status);	
+		main_mode_keys(status);
+			
 	}
 }
