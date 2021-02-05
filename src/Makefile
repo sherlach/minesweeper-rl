@@ -5,9 +5,9 @@ LIBS = -lncurses -ltinfo
 #LDFLAGS = -s
 #DEBUG = -g
 
-SRCS = display.c main.c 
+SRCS = display.c main.c map.c
 
-OBJS = display.o main.o 
+OBJS = display.o main.o map.o 
 
 #gcc -O2 -ltinfo -lncurses main.c
 

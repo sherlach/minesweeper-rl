@@ -29,9 +29,15 @@
  * Too small is very bad. 
  */
 
-
 #define BOX_X 70
 #define BOX_Y 20
+
+
+/* eventually the map size will be different per floor, currently it's set as a 
+ * blanket quantity 
+ */
+#define MAP_X 100
+#define MAP_Y 100
 
 
 #endif

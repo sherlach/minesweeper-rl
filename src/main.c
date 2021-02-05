@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include "config.h"
 #include "display.h"
+#include "player.h"
 
 enum errortypes{none, winsize};
 
@@ -11,10 +12,6 @@ int main_game(WINDOW*, WINDOW*);
 int main(int argc, char* argv[]) {
 	WINDOW *map = NULL;
 	WINDOW *status = NULL;
-	
-	//if (init(map, status) == winsize) { 
-	//	return winsize;
-	//}
 	
 	if (setup_windows(&map, &status) == winsize) {
 		return winsize;
@@ -41,8 +38,11 @@ int close() {
 int main_game(WINDOW* map, WINDOW* status) {
 	enum gamestate{state_main, state_map, state_invent};
 	int returncode = 0; 
+	struct map_tile levelmap[MAP_Y][MAP_X];
+	struct player player;
 	while (!returncode) {
 		main_mode_keys(status);
+		main_mode_display(map, player.player_pos);
 			
 	}
 }
