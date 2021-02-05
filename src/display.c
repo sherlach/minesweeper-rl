@@ -84,7 +84,7 @@ int main_mode_keys(WINDOW *win) {
 	return 1;
 }
 
-int main_mode_display(WINDOW *win, struct position player_pos) {
+int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct position player_pos) {
 	/* so the map window is a subsection of the overall map. We draw that
 	 * in, as much as will fit in the display port. Then we draw the @ in
 	 * the middle
