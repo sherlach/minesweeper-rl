@@ -18,6 +18,7 @@
 #define INVENTORY 'i'
 #define MAP_VIEW 'm'
 
+#define QUIT 'q'
 /* Map icon definitions */
 
 #define ICON_PLAYER '@'

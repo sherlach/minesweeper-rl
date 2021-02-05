@@ -2,6 +2,7 @@
 #define H_DISPLAY
 
 #include <ncurses.h>
+#include "map.h"
 //int setup();
 int setup_windows(WINDOW**, WINDOW**);
 //int test_box();

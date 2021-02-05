@@ -75,6 +75,8 @@ int main_mode_keys(WINDOW *win) {
 		case SOUTH_EAST:
 			update_status("southeast", win);
 			return 0;
+		case QUIT:
+			return 1;
 		default:
 			update_status("invalid case", win);
 			return 0;

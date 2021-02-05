@@ -40,8 +40,10 @@ int main_game(WINDOW* map, WINDOW* status) {
 	int returncode = 0; 
 	struct map_tile levelmap[MAP_Y][MAP_X];
 	struct player player;
+	player.player_pos.x = MAP_X/2;
+	player.player_pos.y = MAP_Y/2;
 	while (!returncode) {
-		main_mode_keys(status);
+		returncode = main_mode_keys(status);
 		main_mode_display(map, player.player_pos);
 			
 	}
