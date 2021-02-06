@@ -22,6 +22,7 @@
 /* Map icon definitions */
 
 #define ICON_PLAYER '@'
+#define UNEXPLORED '#'
 // etc.
 
 /* Game definitions */
@@ -32,7 +33,6 @@
 
 #define BOX_X 70
 #define BOX_Y 20
-
 
 /* eventually the map size will be different per floor, currently it's set as a 
  * blanket quantity 

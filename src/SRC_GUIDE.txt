@@ -3,3 +3,10 @@ config.h - set various preferences (at compile time)
 main.c - main function
 display.c - a lot of the ncurses stuff. handling of windows (outputs and inputs)
 display.h - see display.c
+player.c - init_player function, inventory stuff will be implemented here
+player.h - defines the player struct
+map.c - handles map stuff, obviously
+map.h - see map.c
+
+debug.sh and debug.gdb - script to allow gdb debugging in sep. tmux pane to
+ncurses output (usage: ./debug.sh)

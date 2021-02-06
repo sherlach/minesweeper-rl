@@ -1,1 +1,5 @@
 1. Write some sick input getting and output writing routines
+2. Map and movement
+3. Logic for special tiles
+4. Map generation
+[at this point we have a playable game, by the loosest definition]

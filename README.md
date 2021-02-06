@@ -2,7 +2,7 @@
 
 check config.h and Makefile and edit to suit.
 
-> $make clean install
+> $make install clean
 
 > $cd ..
 
@@ -10,4 +10,4 @@ check config.h and Makefile and edit to suit.
 
 
 
-Highly experimental. Built only for Linux.
+Highly work in progress. Tested only for Linux.

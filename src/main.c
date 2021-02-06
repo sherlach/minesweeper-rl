@@ -5,7 +5,7 @@
 
 enum errortypes { none, winsize };
 
-int init();
+int init_ncurses();
 int close();
 int main_game(WINDOW *, WINDOW *);
 
@@ -17,13 +17,14 @@ int main(int argc, char *argv[]) {
     return winsize;
   }
 
-  init();
+  init_ncurses();
   int excode = main_game(map, status);
   close();
+  printf("Game exited with code %d\n", excode);
   return 0;
 }
 
-int init() {
+int init_ncurses() {
   cbreak();
   noecho();
   keypad(stdscr, TRUE);
@@ -42,8 +43,15 @@ int main_game(WINDOW *map, WINDOW *status) {
   struct player player;
   player.player_pos.x = MAP_X / 2;
   player.player_pos.y = MAP_Y / 2;
+
+  int state = state_main;
+  /* initialise player & map */
+  init_map(levelmap);
   while (!returncode) {
-    returncode = main_mode_keys(status);
-    main_mode_display(map, levelmap, player.player_pos);
+    if (state == state_main) {
+        returncode = main_mode_keys(status);
+        main_mode_display(map, levelmap, player.player_pos);
+    }
   }
+  return returncode;
 }

@@ -31,7 +31,6 @@ default map symbols [can be configured]
 > - soft material
 1, 2, 3 etc. - Number of explosives in the near vicinity (3x3 grid)
   - excavated ground, no explosives nearby
-[" or = - edge of explorable terrain] deprecated
 ! - enemy organic
 
 contrived example (real map would not be this small):

@@ -20,3 +20,20 @@ weakened (can't hit 2x in a row)
 slow (can't move 2x in a row)
 healthy (can survive a mine explosion)
 stealthy (player won't detect until they are adjacent)
+
+
+
+
+
+
+
+collecting minerals from inventory can be "crafted" to make powerups
+
+eg.
+
+Stealth Unit (prevents enemy noticing you as easily)
+Repair Kit (temporarily refills health)
+Electromesh Field (absorbs one explosion, single use)
+**special** Anti-Grav Repulsor (allows you to return to the surface)
+
+a powerup can only be used once every X turns
