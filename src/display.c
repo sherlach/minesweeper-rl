@@ -139,7 +139,7 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct pos
 	// XXX player disp pos is buggy rn
 	//
 	
-	if (player_pos.x + vp_w > MAP_X) { 
+	if (player_pos.x + vp_w >= MAP_X) { 
 		vp_o.x = (MAP_X-BOX_X+1);
 		//player_disp_pos.x += (MAP_X-vp_w);
 	} else if (player_pos.x - vp_w < 0) {
@@ -149,7 +149,7 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct pos
 		vp_o.x = player_pos.x - vp_w;
 	}
 
-	if (player_pos.y + vp_h > MAP_Y) {
+	if (player_pos.y + vp_h >= MAP_Y) {
 		vp_o.y = (MAP_Y-BOX_Y+1);
 		//player_disp_pos.y -= (MAP_Y-vp_h);
 	} else if (player_pos.y - vp_h < 0) {
@@ -163,6 +163,10 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct pos
 	for (i = 1; i < vp_height+1; i++) {
 		wmove(win, i, 1);
 		for (j = 1; j < vp_width+1; j++) {
+			/*if (vp_o.y+i >= MAP_Y) {
+				printf("error %d, %d ", vp_o.y+i, vp_o.x+j);
+				return 1;
+			}*/
 			if (map[vp_o.y+i][vp_o.x+j].explored) {
 				waddch(win, map[vp_o.y+i][vp_o.x+j].display);
 			} else {
