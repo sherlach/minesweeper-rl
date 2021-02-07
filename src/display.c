@@ -54,12 +54,12 @@ int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y
 	switch(wgetch(win)) {
 		case NORTH:
 			update_status("north", win);
-			newpos.y += 1;
+			newpos.y -= 1;
 			movep(&player->position, newpos, map);
 			return 0;	
 		case SOUTH:
 			update_status("south", win);
-			newpos.y -= 1;
+			newpos.y += 1;
 			movep(&player->position, newpos, map);
 			return 0;	
 		case WEST:
@@ -75,25 +75,25 @@ int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y
 		case NORTH_WEST:
 			update_status("northwest", win);
 			newpos.x -= 1;
-			newpos.y += 1;
+			newpos.y -= 1;
 			movep(&player->position, newpos, map);
 			return 0;
 		case SOUTH_WEST:
 			update_status("southwest", win);
 			newpos.x -= 1;
-			newpos.y -= 1;
+			newpos.y += 1;
 			movep(&player->position, newpos, map);
 			return 0;
 		case NORTH_EAST:
 			update_status("northeast", win);
 			newpos.x += 1;
-			newpos.y += 1;
+			newpos.y -= 1;
 			movep(&player->position, newpos, map);
 			return 0;
 		case SOUTH_EAST:
 			update_status("southeast", win);
 			newpos.x += 1;
-			newpos.y -= 1;
+			newpos.y += 1;
 			movep(&player->position, newpos, map);
 			return 0;
 		case QUIT:
