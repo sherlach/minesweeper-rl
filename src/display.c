@@ -54,6 +54,8 @@ int update_status(char *input_str, WINDOW *status) {
 
 int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y][MAP_X]) {
 	struct position newpos = {player->position.x, player->position.y};
+	int j;
+	char buffer[getmaxy(win)]; //used for formatting status string
 	switch(wgetch(win)) {
 		case NORTH:
 			update_status("north", win);
@@ -100,14 +102,19 @@ int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y
 			move_player(&player->position, newpos, map);
 			return 0;
 		case STATUS:
-			//snprintf(hhh)
-			update_status("scanf time?", win);
+			j = sprintf(buffer, "HP: %d, Depth: %dm, GPS: (%d, %d)", 50, player->hp, player->position.x, player->position.y);
+#ifdef DEBUG
+			//printf("%d\n", j);
+#endif
+			update_status(buffer, win);
 			return 0;
 		case QUIT:
 			return 1;
 		default:
 			update_status("invalid case", win);
-			printf("(%d, %d)", player->position.x, player->position.y);
+#ifdef DEBUG
+			printf("(%d, %d)\n", player->position.x, player->position.y);
+#endif
 			return 0;
 	}
 	return 1;
@@ -136,25 +143,19 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct pos
 	//    (if the array would stretch past legal bounds, ignore)
 	// 2. find the symbols they use and print them
 	// 
-	// XXX player disp pos is buggy rn
-	//
 	
 	if (player_pos.x + vp_w >= MAP_X) { 
 		vp_o.x = (MAP_X-BOX_X+1);
-		//player_disp_pos.x += (MAP_X-vp_w);
 	} else if (player_pos.x - vp_w < 0) {
 		vp_o.x = 0;
-		//player_disp_pos.x -= vp_w;
 	} else {
 		vp_o.x = player_pos.x - vp_w;
 	}
 
 	if (player_pos.y + vp_h >= MAP_Y) {
 		vp_o.y = (MAP_Y-BOX_Y+1);
-		//player_disp_pos.y -= (MAP_Y-vp_h);
 	} else if (player_pos.y - vp_h < 0) {
 		vp_o.y = 0;
-		//player_disp_pos.y += vp_h;
 	} else {
 		vp_o.y = player_pos.y - vp_h;
 	}
@@ -163,10 +164,6 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct pos
 	for (i = 1; i < vp_height+1; i++) {
 		wmove(win, i, 1);
 		for (j = 1; j < vp_width+1; j++) {
-			/*if (vp_o.y+i >= MAP_Y) {
-				printf("error %d, %d ", vp_o.y+i, vp_o.x+j);
-				return 1;
-			}*/
 			if (map[vp_o.y+i][vp_o.x+j].explored) {
 				waddch(win, map[vp_o.y+i][vp_o.x+j].display);
 			} else {
@@ -175,10 +172,8 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct pos
 		}
 	}
 	
-	struct position player_disp_pos = {player_pos.x -vp_o.x, player_pos.y-vp_o.y }; //where to draw the player relative to display
-
 	// mvwaddch the player pos, '@'	
-	mvwaddch(win, player_disp_pos.y, player_disp_pos.x, ICON_PLAYER);
+	mvwaddch(win, player_pos.y - vp_o.y, player_pos.x - vp_o.x, ICON_PLAYER);
 	wrefresh(win);
 	return 0;
 }

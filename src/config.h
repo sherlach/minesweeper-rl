@@ -1,6 +1,9 @@
 #ifndef H_CONFIG
 #define H_CONFIG
 
+
+#define DEBUG
+
 /* Keymap definitions */
 
 #define NORTH 'k'
@@ -27,6 +30,7 @@
 
 /* Game definitions */
 
+// Unless you know what you are doing, don't edit these values!
 /* box x and box y are the size the game box will appear. Adjust to fit your screen.
  * Too small is very bad. 
  */
