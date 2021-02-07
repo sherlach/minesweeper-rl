@@ -5,10 +5,11 @@
 #include "config.h"
 
 struct player {
-	struct position player_pos;
+	struct position position;
 	int hp;
 };
 
-int movep(struct player, struct position newpos, struct map_tile map[MAP_Y][MAP_X]);
+int init_player(struct player*);
+int movep(struct position*, struct position, struct map_tile[MAP_Y][MAP_X]);
 #endif
 

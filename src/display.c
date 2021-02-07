@@ -1,6 +1,7 @@
 #include "display.h"
 #include "config.h"
 #include "map.h"
+#include "player.h"
 #include <ncurses.h>
 
 int setup_windows(WINDOW **map, WINDOW **status) {
@@ -48,37 +49,58 @@ int update_status(char *input_str, WINDOW *status) {
  * (view dat inventory). We need keypress and viewing opts for both.
  */
 
-int main_mode_keys(WINDOW *win) {
-	
+int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y][MAP_X]) {
+	struct position newpos = {player->position.x, player->position.y};
 	switch(wgetch(win)) {
 		case NORTH:
 			update_status("north", win);
+			newpos.y += 1;
+			movep(&player->position, newpos, map);
 			return 0;	
 		case SOUTH:
 			update_status("south", win);
+			newpos.y -= 1;
+			movep(&player->position, newpos, map);
 			return 0;	
 		case WEST:
-			update_status("west ", win); // hack
+			update_status("west", win); 
+			newpos.x -= 1;
+			movep(&player->position, newpos, map);
 			return 0;	
 		case EAST:
-			update_status("east ", win);
+			update_status("east", win);
+			newpos.x += 1;
+			movep(&player->position, newpos, map);
 			return 0;	
 		case NORTH_WEST:
 			update_status("northwest", win);
+			newpos.x -= 1;
+			newpos.y += 1;
+			movep(&player->position, newpos, map);
 			return 0;
 		case SOUTH_WEST:
 			update_status("southwest", win);
+			newpos.x -= 1;
+			newpos.y -= 1;
+			movep(&player->position, newpos, map);
 			return 0;
 		case NORTH_EAST:
 			update_status("northeast", win);
+			newpos.x += 1;
+			newpos.y += 1;
+			movep(&player->position, newpos, map);
 			return 0;
 		case SOUTH_EAST:
 			update_status("southeast", win);
+			newpos.x += 1;
+			newpos.y -= 1;
+			movep(&player->position, newpos, map);
 			return 0;
 		case QUIT:
 			return 1;
 		default:
 			update_status("invalid case", win);
+			printf("(%d, %d)", player->position.x, player->position.y);
 			return 0;
 	}
 	return 1;

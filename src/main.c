@@ -41,16 +41,17 @@ int main_game(WINDOW *map, WINDOW *status) {
   int returncode = 0;
   struct map_tile levelmap[MAP_Y][MAP_X];
   struct player player;
-  player.player_pos.x = MAP_X / 2;
-  player.player_pos.y = MAP_Y / 2;
+  player.position.x = MAP_X / 2;
+  player.position.y = MAP_Y / 2;
 
   int state = state_main;
   /* initialise player & map */
+  init_player(&player);
   init_map(levelmap);
   while (!returncode) {
     if (state == state_main) {
-        returncode = main_mode_keys(status);
-        main_mode_display(map, levelmap, player.player_pos);
+        returncode = main_mode_keys(status, &player, levelmap);
+        main_mode_display(map, levelmap, player.position);
     }
   }
   return returncode;
