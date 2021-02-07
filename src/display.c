@@ -34,7 +34,7 @@ int setup_windows(WINDOW **map, WINDOW **status) {
 
 int update_status(char *input_str, WINDOW *status) {
 	int x;
-	if (*input_str < getmaxx(status)-1) {
+	//if (*input_str < getmaxx(status)-1) {
 		wmove(status, 0, 0);
 		for (x = 0; x < getmaxx(status); x++) {
 			wprintw(status, " ");
@@ -42,7 +42,7 @@ int update_status(char *input_str, WINDOW *status) {
 		wmove(status, 0, 0);
 		wprintw(status, "> %s", input_str);
 		wrefresh(status);
-	}
+	//}
 
 	return 1;
 }
@@ -140,7 +140,7 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct pos
 	//
 	
 	if (player_pos.x + vp_w > MAP_X) { 
-		vp_o.x = (MAP_X-BOX_X);
+		vp_o.x = (MAP_X-BOX_X+1);
 		//player_disp_pos.x += (MAP_X-vp_w);
 	} else if (player_pos.x - vp_w < 0) {
 		vp_o.x = 0;
@@ -150,7 +150,7 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct pos
 	}
 
 	if (player_pos.y + vp_h > MAP_Y) {
-		vp_o.x = (MAP_Y-BOX_Y);
+		vp_o.y = (MAP_Y-BOX_Y+1);
 		//player_disp_pos.y -= (MAP_Y-vp_h);
 	} else if (player_pos.y - vp_h < 0) {
 		vp_o.y = 0;

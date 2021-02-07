@@ -35,7 +35,10 @@
 #define BOX_Y 20
 
 /* eventually the map size will be different per floor, currently it's set as a 
- * blanket quantity 
+ * blanket quantity. To avoid undefined behaviour, please try to keep this 
+ * larger than the box size. Also please note that indices 0 and MAX aren't 
+ * traversable.
+ *
  */
 #define MAP_X 100
 #define MAP_Y 100
