@@ -18,6 +18,7 @@
 #define DOWN '>'
 
 #define STATUS 's'
+#define STATUS_TOGGLE 'S'
 #define INVENTORY 'i'
 #define MAP_VIEW 'm'
 

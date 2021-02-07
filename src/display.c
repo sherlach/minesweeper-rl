@@ -2,6 +2,7 @@
 #include "config.h"
 #include "map.h"
 #include "player.h"
+#include "stdbool.h"
 #include <ncurses.h>
 
 int setup_windows(WINDOW **map, WINDOW **status) {
@@ -52,71 +53,71 @@ int update_status(char *input_str, WINDOW *status) {
  * (view dat inventory). We need keypress and viewing opts for both.
  */
 
-int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y][MAP_X]) {
+int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y][MAP_X], int depth, bool status_toggle) {
 	struct position newpos = {player->position.x, player->position.y};
 	int j;
-	char buffer[getmaxy(win)]; //used for formatting status string
+	char status_string[BOX_X-3]; 
 	switch(wgetch(win)) {
 		case NORTH:
-			update_status("north", win);
+			j = sprintf(status_string, "north");
 			newpos.y -= 1;
 			move_player(&player->position, newpos, map);
-			return 0;	
+			break;
 		case SOUTH:
-			update_status("south", win);
+			j = sprintf(status_string, "south");
 			newpos.y += 1;
 			move_player(&player->position, newpos, map);
-			return 0;	
+			break;
 		case WEST:
-			update_status("west", win); 
+			j = sprintf(status_string, "west");
 			newpos.x -= 1;
 			move_player(&player->position, newpos, map);
-			return 0;	
+			break;
 		case EAST:
-			update_status("east", win);
+			j = sprintf(status_string, "east");
 			newpos.x += 1;
 			move_player(&player->position, newpos, map);
-			return 0;	
+			break;
 		case NORTH_WEST:
-			update_status("northwest", win);
+			j = sprintf(status_string, "northwest");
 			newpos.x -= 1;
 			newpos.y -= 1;
 			move_player(&player->position, newpos, map);
-			return 0;
+			break;
 		case SOUTH_WEST:
-			update_status("southwest", win);
+			j = sprintf(status_string, "southwest");
 			newpos.x -= 1;
 			newpos.y += 1;
 			move_player(&player->position, newpos, map);
-			return 0;
+			break;
 		case NORTH_EAST:
-			update_status("northeast", win);
+			j = sprintf(status_string, "northeast");
 			newpos.x += 1;
 			newpos.y -= 1;
 			move_player(&player->position, newpos, map);
-			return 0;
+			break;
 		case SOUTH_EAST:
-			update_status("southeast", win);
+			j = sprintf(status_string, "southeast");
 			newpos.x += 1;
 			newpos.y += 1;
 			move_player(&player->position, newpos, map);
-			return 0;
+			break;
 		case STATUS:
-			j = sprintf(buffer, "HP: %d, Depth: %dm, GPS: (%d, %d)", 50, player->hp, player->position.x, player->position.y);
-#ifdef DEBUG
-			//printf("%d\n", j);
-#endif
-			update_status(buffer, win);
-			return 0;
+			j = sprintf(status_string, "HP: %d, Depth: %dm, GPS: (%d, %d)", player->hp, depth, player->position.x, player->position.y);
+			break;
+		case STATUS_TOGGLE:
+			return 2;
 		case QUIT:
-			return 1;
-		default:
-			update_status("invalid case", win);
-#ifdef DEBUG
-			printf("(%d, %d)\n", player->position.x, player->position.y);
-#endif
 			return 0;
+		default:
+			j = sprintf(status_string, "invalid input");
+			break;
 	}
+	if (status_toggle) {
+			j = sprintf(status_string, "HP: %d, Depth: %dm, GPS: (%d, %d)", player->hp, depth, player->position.x, player->position.y);
+	}
+
+	update_status(status_string, win);
 	return 1;
 }
 

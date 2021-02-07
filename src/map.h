@@ -16,6 +16,6 @@ struct position {
 	int y;
 };
 
-int init_map(struct map_tile[MAP_Y][MAP_X]);
+int init_map(struct map_tile[MAP_Y][MAP_X], int);
 int update_numbers(struct map_tile map[MAP_Y][MAP_X]);
 #endif
