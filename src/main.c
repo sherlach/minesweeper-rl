@@ -20,13 +20,14 @@ int main(int argc, char *argv[]) {
   init_ncurses();
   int excode = main_game(map, status);
   close();
-  printf("Game exited with code %d\n", excode);
+  printf("Game exited with code %d\n", excode-1);
   return 0;
 }
 
 int init_ncurses() {
   cbreak();
   noecho();
+  curs_set(0);
   keypad(stdscr, TRUE);
   return 0;
 }

@@ -5,7 +5,7 @@ int init_map(struct map_tile map[MAP_Y][MAP_X]) {
 	for (i = 0; i < MAP_Y; i++) {
 		for (j = 0; j < MAP_X; j++) {
 			map[i][j].display = ' ';
-			map[i][j].explored = 0;
+			map[i][j].explored = false;
 		}
 	}
 	return 0;

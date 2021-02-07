@@ -2,12 +2,13 @@
 #define H_MAP
 
 #include "config.h"
+#include <stdbool.h>
 
 struct map_tile {
 	char display; //how does it appear on the display	
-	char explored; //has it been explored yet
-	char exploding; //is the tile explosive? (a mine)
-	char sand; //is this soft sand to drill down through?
+	bool explored; //has it been explored yet
+	bool exploding; //is the tile explosive? (a mine)
+	bool sand; //is this soft sand to drill down through?
 };
 
 struct position {
