@@ -87,6 +87,7 @@ int main_game(WINDOW *map, WINDOW *status) {
 	if (returncode == 2) {
 		status_toggle = !status_toggle;
 	}
+  update_numbers(levelmap);
         main_mode_display(map, levelmap, player.position, alive);
     }
 
