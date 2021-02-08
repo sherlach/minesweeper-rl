@@ -10,6 +10,6 @@ struct player {
 };
 
 int init_player(struct player*);
-int move_player(struct position*, struct position, struct map_tile[MAP_Y][MAP_X]);
+int move_player(struct player*, struct position, struct map_tile[MAP_Y][MAP_X]);
 #endif
 

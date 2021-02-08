@@ -27,6 +27,7 @@
 
 #define ICON_PLAYER '@'
 #define UNEXPLORED '#'
+#define MINE '*' //shown when you are dead 
 // etc.
 
 /* Game definitions */

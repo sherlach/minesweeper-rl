@@ -61,46 +61,46 @@ int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y
 		case NORTH:
 			j = sprintf(status_string, "north");
 			newpos.y -= 1;
-			move_player(&player->position, newpos, map);
+			move_player(player, newpos, map);
 			break;
 		case SOUTH:
 			j = sprintf(status_string, "south");
 			newpos.y += 1;
-			move_player(&player->position, newpos, map);
+			move_player(player, newpos, map);
 			break;
 		case WEST:
 			j = sprintf(status_string, "west");
 			newpos.x -= 1;
-			move_player(&player->position, newpos, map);
+			move_player(player, newpos, map);
 			break;
 		case EAST:
 			j = sprintf(status_string, "east");
 			newpos.x += 1;
-			move_player(&player->position, newpos, map);
+			move_player(player, newpos, map);
 			break;
 		case NORTH_WEST:
 			j = sprintf(status_string, "northwest");
 			newpos.x -= 1;
 			newpos.y -= 1;
-			move_player(&player->position, newpos, map);
+			move_player(player, newpos, map);
 			break;
 		case SOUTH_WEST:
 			j = sprintf(status_string, "southwest");
 			newpos.x -= 1;
 			newpos.y += 1;
-			move_player(&player->position, newpos, map);
+			move_player(player, newpos, map);
 			break;
 		case NORTH_EAST:
 			j = sprintf(status_string, "northeast");
 			newpos.x += 1;
 			newpos.y -= 1;
-			move_player(&player->position, newpos, map);
+			move_player(player, newpos, map);
 			break;
 		case SOUTH_EAST:
 			j = sprintf(status_string, "southeast");
 			newpos.x += 1;
 			newpos.y += 1;
-			move_player(&player->position, newpos, map);
+			move_player(player, newpos, map);
 			break;
 		case STATUS:
 			j = sprintf(status_string, "HP: %d, Depth: %dm, GPS: (%d, %d)", player->hp, depth, player->position.x, player->position.y);
@@ -108,7 +108,7 @@ int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y
 		case STATUS_TOGGLE:
 			return 2;
 		case QUIT:
-			return 0;
+			return 10;
 		default:
 			j = sprintf(status_string, "invalid input");
 			break;
@@ -121,7 +121,7 @@ int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y
 	return 1;
 }
 
-int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct position player_pos) {
+int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct position player_pos, bool alive) {
 	/* so the map window is a subsection of the overall map. We draw that
 	 * in, as much as will fit in the display port. Then we draw the @ in
 	 * the middle
@@ -162,19 +162,41 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct pos
 	}
 
 	int i, j;
+	//if (alive) {
 	for (i = 1; i < vp_height+1; i++) {
 		wmove(win, i, 1);
 		for (j = 1; j < vp_width+1; j++) {
-			if (map[vp_o.y+i][vp_o.x+j].explored) {
+			if (map[vp_o.y+i][vp_o.x+j].explored || !alive) {
 				waddch(win, map[vp_o.y+i][vp_o.x+j].display);
 			} else {
 				waddch(win, UNEXPLORED);
 			}
 		}
 	}
+	//}
+	/* 
+	else {
+		for (i = 1; i < vp_height+1; i++) {
+			wmove(win, i, 1);
+			for (j=1; j< vp_width+1; j++) {
+				waddch(win, map[vp_o.y+i][vp_o.x+j].display);
+			}
+		}
+	}
+	*/
 	
 	// mvwaddch the player pos, '@'	
+	if (alive)
 	mvwaddch(win, player_pos.y - vp_o.y, player_pos.x - vp_o.x, ICON_PLAYER);
 	wrefresh(win);
 	return 0;
+}
+
+int dead_mode_keys(WINDOW *win) {
+	switch(wgetch(win)) {
+		case QUIT:
+			return 11;
+	}
+
+	return 1;
 }
