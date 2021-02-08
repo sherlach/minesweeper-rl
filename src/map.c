@@ -13,8 +13,8 @@ int init_map(struct map_tile map[MAP_Y][MAP_X], int depth) {
 	map[48][48].exploding = true; //test the explosion logic
 	map[48][48].display = MINE;
 
-	map[42][46].exploding = true;
-	map[42][46].exploding = MINE;
+	map[47][46].exploding = true;
+	map[47][46].display = MINE;
 	return 0;
 }
 
