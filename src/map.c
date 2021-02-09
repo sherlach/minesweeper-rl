@@ -6,12 +6,16 @@ int init_map(struct map_tile map[MAP_Y][MAP_X], int depth) {
   int threshold;
   /* part one: calculate probability threshold based on depth */
   
-  threshold = (int)(40*log((double)depth+60)-154);
+  /* I like this formula but it's way too hard right now. Maybe once
+   * powerups are implemented... */
+
+  //threshold = (int)(40*log((double)depth+60)-154);
+  threshold = (int)(40*log((double)depth+60)-165);
 
 
   /* part two: use the threshold to calculate what's going on */
 
-  enum tile_type { normal, mine }; //sand when the logic is built
+  enum tile_type { normal, mine, sand };
   int i, j;
   int curr_tile_type;
 
@@ -23,6 +27,9 @@ int init_map(struct map_tile map[MAP_Y][MAP_X], int depth) {
 
       if (r < threshold)
         curr_tile_type = mine;
+      else if (r % 50 == 0)
+        curr_tile_type = sand;
+
 
       if (curr_tile_type == normal) {
       map[i][j].display = EMPTY;
@@ -34,16 +41,23 @@ int init_map(struct map_tile map[MAP_Y][MAP_X], int depth) {
         map[i][j].explored = false;
         map[i][j].exploding = true;
       map[i][j].sand = false;
+      } else if (curr_tile_type == sand) {
+        map[i][j].display = SAND;
+        map[i][j].explored = false;
+        map[i][j].exploding = false;
+        map[i][j].sand = true;
       }
     }
   }
-/*
-  map[48][48].exploding = true; // test the explosion logic
-  map[48][48].display = MINE;
 
-  map[47][46].exploding = true;
-  map[47][46].display = MINE;
-  */
+  /* Finally, guarantee that a sand tile will exist */
+      i = (rand() % MAP_Y-1) + 1;
+      j = (rand() % MAP_X-1) + 1;
+        map[i][j].display = SAND;
+        map[i][j].explored = false;
+        map[i][j].exploding = false;
+        map[i][j].sand = true;
+   
 
   return 0;
 }
@@ -107,9 +121,13 @@ int safe_landing(struct map_tile map[MAP_Y][MAP_X], struct position player_pos) 
   int i, j;
   for (i = -1; i < 2; i++) {
     for (j = -1; j < 2; j++) {
-  map[player_pos.y+i][player_pos.x+j].exploding =false;
-  map[player_pos.y+i][player_pos.x+j].display = EMPTY;
-  map[player_pos.y+i][player_pos.x+j].explored = true;
+  
+      if (map[player_pos.y+i][player_pos.x+j].exploding) {
+        map[player_pos.y+i][player_pos.x+j].exploding = false;
+        map[player_pos.y+i][player_pos.x+j].display = EMPTY;
+      }
+      
+      map[player_pos.y+i][player_pos.x+j].explored = true;
   }
   }
   return 0; 

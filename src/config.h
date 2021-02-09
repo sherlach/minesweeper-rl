@@ -2,7 +2,7 @@
 #define H_CONFIG
 
 
-#define DEBUG
+//#define DEBUG
 
 /* Keymap definitions */
 
@@ -19,16 +19,20 @@
 
 #define STATUS 's'
 #define STATUS_TOGGLE 'S'
+
 #define INVENTORY 'i'
 #define MAP_VIEW 'm'
 
 #define QUIT 'q'
+
 /* Map icon definitions */
 
 #define ICON_PLAYER '@'
 #define UNEXPLORED '#'
 #define EMPTY ' '//normal, empty square
 #define MINE '*' //shown when you are dead 
+#define SAND '>' //soft sand icon
+
 // etc.
 
 /* Game definitions */

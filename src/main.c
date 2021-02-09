@@ -54,7 +54,6 @@ int main_game(WINDOW *map, WINDOW *status) {
   enum gamestate { state_new_level, state_main, state_map, state_invent, state_dead }; //state_dead is relatable
   int returncode = 1;
   struct map_tile levelmap[MAP_Y][MAP_X];
-  //int depth = 10;
   int depth = 10;
   bool status_toggle = false;
   struct player player;
@@ -66,14 +65,14 @@ int main_game(WINDOW *map, WINDOW *status) {
   /* initialise player */
   init_player(&player);
 
-  srand(123445);
+  srand(1234423235);
   /* RETURNCODES: make this an enum once they're more set in stone
    * 
    * still in loop
    * 0
    * 1 normal, valid input & move
    * 2 statusbar toggled 
-   * 3
+   * 3 descend to next floor
    * 
    * exit loop
    * 10 player chose to quit
@@ -89,11 +88,18 @@ int main_game(WINDOW *map, WINDOW *status) {
 
     if (state == state_main) {
         returncode = main_mode_keys(status, &player, levelmap, depth, status_toggle);
-	if (returncode == 2) {
-		status_toggle = !status_toggle;
-	}
-  update_numbers(levelmap);
-        main_mode_display(map, levelmap, player.position, alive);
+	    if (returncode == 2) {
+		    status_toggle = !status_toggle;
+	    }
+
+      if (returncode == 3) {
+        depth += 10;
+        state = state_new_level;
+      }
+    
+      update_numbers(levelmap);
+      main_mode_display(map, levelmap, player.position, alive);
+    
     }
 
     if (state == state_dead) {

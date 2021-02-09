@@ -102,6 +102,15 @@ int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y
 			newpos.y += 1;
 			move_player(player, newpos, map);
 			break;
+    case DOWN:
+      if (check_player_descent(player->position, map)) {
+        update_status("Drilling down...", win);
+        return 3;
+      }
+
+			j = sprintf(status_string, "attempting to drill down... failure!");
+      break;
+
 		case STATUS:
 			j = sprintf(status_string, "HP: %d, Depth: %dm, GPS: (%d, %d)", player->hp, depth, player->position.x, player->position.y);
 			break;
