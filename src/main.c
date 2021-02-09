@@ -4,8 +4,9 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
-enum errortypes { none, winsize };
+enum errortypes { none, winsize, colour };
 enum exittypes { normal, death };
 
 int init_ncurses();
@@ -20,7 +21,14 @@ int main(int argc, char *argv[]) {
     return winsize;
   }
 
+#ifdef COLOUR
+  if (init_ncurses() == colour) {
+    return colour;
+  }
+#else
   init_ncurses();
+#endif
+
   int excode = main_game(map, status);
   close();
   if (excode > 9) {
@@ -42,6 +50,32 @@ int init_ncurses() {
   noecho();
   curs_set(0);
   keypad(stdscr, TRUE);
+#ifdef COLOUR
+  if (has_colors() == FALSE) {
+    endwin();
+    printf("Your terminal doesn't support colour. Please remove COLOUR from config.h.\n");
+    return colour;
+  }
+  start_color();
+  init_pair(1, ONE_SYM, ONE_BACK);
+  init_pair(2, TWO_SYM, TWO_BACK);
+  init_pair(3, THREE_SYM, THREE_BACK);
+  init_pair(4, FOUR_SYM, FOUR_BACK);
+  init_pair(5, FIVE_SYM, FIVE_BACK);
+  init_pair(6, SIX_SYM, SIX_BACK);
+  init_pair(7, SEVEN_SYM, SEVEN_BACK);
+  init_pair(8, EIGHT_SYM, EIGHT_BACK);
+  /*
+  init_pair(1, COLOR_BLUE, COLOR_BLACK);
+  init_pair(2, COLOR_GREEN, COLOR_BLACK);
+  init_pair(3, COLOR_RED, COLOR_BLACK);
+  init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(6, COLOR_CYAN, COLOR_BLACK);
+  init_pair(7, COLOR_BLUE, COLOR_WHITE);
+  init_pair(8, COLOR_RED, COLOR_WHITE);
+  */
+#endif
   return 0;
 }
 
@@ -65,7 +99,9 @@ int main_game(WINDOW *map, WINDOW *status) {
   /* initialise player */
   init_player(&player);
 
-  srand(1234423235);
+  //srand(69105);
+  
+  srand(time(NULL));
   /* RETURNCODES: make this an enum once they're more set in stone
    * 
    * still in loop
@@ -83,6 +119,7 @@ int main_game(WINDOW *map, WINDOW *status) {
     if (state == state_new_level) {
 	    init_map(levelmap, depth);
       safe_landing(levelmap, player.position);
+      main_mode_display(map, levelmap, player.position, alive);
 	    state = state_main;
     }
 

@@ -185,28 +185,26 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X], struct pos
 	}
 
 	int i, j;
-	//if (alive) {
 	for (i = 1; i < vp_height+1; i++) {
 		wmove(win, i, 1);
 		for (j = 1; j < vp_width+1; j++) {
 			if (map[vp_o.y+i][vp_o.x+j].explored || !alive) {
+#ifdef COLOUR
+        if (map[vp_o.y+i][vp_o.x+j].display > '0' && map[vp_o.y+i][vp_o.x+j].display < '9') { 
+  //init_pair(1, COLOR_RED, COLOR_BLACK);
+          wattron(win, COLOR_PAIR(map[vp_o.y+i][vp_o.x+j].display - '0'));
 				waddch(win, map[vp_o.y+i][vp_o.x+j].display);
+          wattroff(win, COLOR_PAIR(map[vp_o.y+i][vp_o.x+j].display - '0'));
+        }
+        else {
+#endif
+          waddch(win, map[vp_o.y+i][vp_o.x+j].display);
+        }
 			} else {
 				waddch(win, UNEXPLORED);
 			}
 		}
 	}
-	//}
-	/* 
-	else {
-		for (i = 1; i < vp_height+1; i++) {
-			wmove(win, i, 1);
-			for (j=1; j< vp_width+1; j++) {
-				waddch(win, map[vp_o.y+i][vp_o.x+j].display);
-			}
-		}
-	}
-	*/
 	
 	// mvwaddch the player pos, '@'	
 	if (alive)

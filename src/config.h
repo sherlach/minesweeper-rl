@@ -3,6 +3,7 @@
 
 
 //#define DEBUG
+#define COLOUR
 
 /* Keymap definitions */
 
@@ -32,6 +33,27 @@
 #define EMPTY ' '//normal, empty square
 #define MINE '*' //shown when you are dead 
 #define SAND '>' //soft sand icon
+
+/* Here you can configure the colours of numbered tiles. BACK is the background,
+ * SYM is the symbol itself 
+ */
+
+#define ONE_SYM COLOR_BLUE
+#define ONE_BACK COLOR_BLACK
+#define TWO_SYM COLOR_GREEN
+#define TWO_BACK COLOR_BLACK
+#define THREE_SYM COLOR_RED
+#define THREE_BACK COLOR_BLACK
+#define FOUR_SYM COLOR_YELLOW
+#define FOUR_BACK COLOR_BLACK
+#define FIVE_SYM COLOR_MAGENTA
+#define FIVE_BACK COLOR_BLACK
+#define SIX_SYM COLOR_CYAN
+#define SIX_BACK COLOR_BLACK
+#define SEVEN_SYM COLOR_BLUE
+#define SEVEN_BACK COLOR_WHITE
+#define EIGHT_SYM COLOR_BLUE
+#define EIGHT_BACK COLOR_WHITE
 
 // etc.
 
