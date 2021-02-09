@@ -106,8 +106,17 @@ int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y
 			j = sprintf(status_string, "HP: %d, Depth: %dm, GPS: (%d, %d)", player->hp, depth, player->position.x, player->position.y);
 			break;
 		case STATUS_TOGGLE:
+      //HACK to display status immediately
+      if (status_toggle) {
+			j = sprintf(status_string, "Status bar toggled off.");
+      } else {
+			j = sprintf(status_string, "HP: %d, Depth: %dm, GPS: (%d, %d)", player->hp, depth, player->position.x, player->position.y);
+      }
+
+      update_status(status_string, win);
 			return 2;
 		case QUIT:
+      update_status("Player exited.", win);
 			return 10;
 		default:
 			j = sprintf(status_string, "invalid input");

@@ -53,7 +53,8 @@ int main_game(WINDOW *map, WINDOW *status) {
   enum gamestate { state_new_level, state_main, state_map, state_invent, state_dead }; //state_dead is relatable
   int returncode = 1;
   struct map_tile levelmap[MAP_Y][MAP_X];
-  int depth = 10;
+  //int depth = 10;
+  int depth = 3;
   bool status_toggle = false;
   struct player player;
   bool alive = true;
@@ -78,7 +79,7 @@ int main_game(WINDOW *map, WINDOW *status) {
   while (returncode < 10) {
 
     if (state == state_new_level) {
-	    init_map(levelmap, depth);
+	    init_map(levelmap, depth, 1223456);
 	    state = state_main;
     }
 

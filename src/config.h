@@ -27,6 +27,7 @@
 
 #define ICON_PLAYER '@'
 #define UNEXPLORED '#'
+#define EMPTY ' '//normal, empty square
 #define MINE '*' //shown when you are dead 
 // etc.
 
