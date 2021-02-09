@@ -1,20 +1,28 @@
 #include "map.h"
 #include <stdlib.h>
+#include <math.h>
 
-int init_map(struct map_tile map[MAP_Y][MAP_X], int depth, int seed) {
-  int i, j;
+int init_map(struct map_tile map[MAP_Y][MAP_X], int depth) {
+  int threshold;
+  /* part one: calculate probability threshold based on depth */
+  
+  threshold = (int)(40*log((double)depth+60)-154);
+
+
+  /* part two: use the threshold to calculate what's going on */
+
   enum tile_type { normal, mine }; //sand when the logic is built
+  int i, j;
   int curr_tile_type;
-  srand(seed);
+
   for (i = 0; i < MAP_Y; i++) {
     for (j = 0; j < MAP_X; j++) {
       curr_tile_type = normal;
 
-      int r = rand() % 35-depth; //higher depth, higher probablility
-                                 //this relationship wont' be linear
+      int r = rand() % 100;
 
-      if (!r)
-      curr_tile_type = mine;
+      if (r < threshold)
+        curr_tile_type = mine;
 
       if (curr_tile_type == normal) {
       map[i][j].display = EMPTY;
@@ -37,14 +45,6 @@ int init_map(struct map_tile map[MAP_Y][MAP_X], int depth, int seed) {
   map[47][46].display = MINE;
   */
 
-  /* HACK: player's landing site is clean */
-  for (i = -1; i < 2; i++) {
-    for (j = -1; j < 2; j++) {
-  map[50+i][50+j].exploding  =false;
-  map[50+i][50+j].display = EMPTY;
-  map[50+i][50+j].explored = true;
-  }
-  }
   return 0;
 }
 /*
@@ -100,4 +100,17 @@ int update_numbers(struct map_tile map[MAP_Y][MAP_X]) {
   }
 
   return 0;
+}
+
+int safe_landing(struct map_tile map[MAP_Y][MAP_X], struct position player_pos) {
+  // make the squares surrounding player_pos empty and non explosive.
+  int i, j;
+  for (i = -1; i < 2; i++) {
+    for (j = -1; j < 2; j++) {
+  map[player_pos.y+i][player_pos.x+j].exploding =false;
+  map[player_pos.y+i][player_pos.x+j].display = EMPTY;
+  map[player_pos.y+i][player_pos.x+j].explored = true;
+  }
+  }
+  return 0; 
 }

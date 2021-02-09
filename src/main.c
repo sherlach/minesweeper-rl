@@ -2,6 +2,7 @@
 #include "display.h"
 #include "player.h"
 #include <ncurses.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 enum errortypes { none, winsize };
@@ -54,7 +55,7 @@ int main_game(WINDOW *map, WINDOW *status) {
   int returncode = 1;
   struct map_tile levelmap[MAP_Y][MAP_X];
   //int depth = 10;
-  int depth = 3;
+  int depth = 10;
   bool status_toggle = false;
   struct player player;
   bool alive = true;
@@ -64,6 +65,8 @@ int main_game(WINDOW *map, WINDOW *status) {
   int state = state_new_level;
   /* initialise player */
   init_player(&player);
+
+  srand(123445);
   /* RETURNCODES: make this an enum once they're more set in stone
    * 
    * still in loop
@@ -79,7 +82,8 @@ int main_game(WINDOW *map, WINDOW *status) {
   while (returncode < 10) {
 
     if (state == state_new_level) {
-	    init_map(levelmap, depth, 1223456);
+	    init_map(levelmap, depth);
+      safe_landing(levelmap, player.position);
 	    state = state_main;
     }
 
@@ -94,7 +98,16 @@ int main_game(WINDOW *map, WINDOW *status) {
 
     if (state == state_dead) {
 	   main_mode_display(map, levelmap, player.position, alive); 
+#ifdef DEBUG
+     dead_mode_keys(status);
+     alive = true;
+     state = state_main;
+     returncode = 0;
+     update_status("Reviving due to debug mode", status);
+     player.hp = 10;
+#else
 	   returncode = dead_mode_keys(status);
+#endif
     }
 
 
@@ -102,6 +115,7 @@ int main_game(WINDOW *map, WINDOW *status) {
 	   state = state_dead; 
 	   alive = false;
     }
+  
   }
 
   return returncode;

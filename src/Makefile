@@ -1,7 +1,7 @@
 #CC = gcc
 CC = clang
 CFLAGS = -Wall -g #-O2 #-fno-strength-reduce -pipe -D"USE_GCU"
-LIBS = -lncurses -ltinfo
+LIBS = -lm -lncurses -ltinfo
 #LDFLAGS = -s
 
 SRCS = display.c main.c map.c player.c
