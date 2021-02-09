@@ -127,6 +127,11 @@ int main_mode_keys(WINDOW *win, struct player* player, struct map_tile map[MAP_Y
 		case QUIT:
       update_status("Player exited.", win);
 			return 10;
+#ifdef DEBUG
+    case 'z':
+      player->hp = 0;
+      return 0;
+#endif
 		default:
 			j = sprintf(status_string, "invalid input");
 			break;
