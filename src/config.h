@@ -1,7 +1,6 @@
 #ifndef H_CONFIG
 #define H_CONFIG
 
-
 //#define DEBUG
 #define COLOUR
 
@@ -30,14 +29,16 @@
 
 #define ICON_PLAYER '@'
 #define UNEXPLORED '#'
-#define EMPTY ' '//normal, empty square
-#define MINE '*' //shown when you are dead 
-#define SAND '>' //soft sand icon
+#define EMPTY ' ' // normal, empty square
+#define MINE '*'  // shown when you are dead
+#define SAND '>'  // soft sand icon
 
 /* Here you can configure the colours of numbered tiles. BACK is the background,
- * SYM is the symbol itself 
+ * SYM is the symbol itself
  */
 
+#define DEF_SYM COLOR_WHITE
+#define DEF_BACK COLOR_BLACK
 #define ONE_SYM COLOR_BLUE
 #define ONE_BACK COLOR_BLACK
 #define TWO_SYM COLOR_GREEN
@@ -60,21 +61,20 @@
 /* Game definitions */
 
 // Unless you know what you are doing, don't edit these values!
-/* box x and box y are the size the game box will appear. Adjust to fit your screen.
- * Too small is very bad. 
+/* box x and box y are the size the game box will appear. Adjust to fit your
+ * screen. Too small is very bad.
  */
 
-#define BOX_X 70
+#define BOX_X 50
 #define BOX_Y 20
 
-/* eventually the map size will be different per floor, currently it's set as a 
- * blanket quantity. To avoid undefined behaviour, please try to keep this 
- * larger than the box size. Also please note that indices 0 and MAX aren't 
+/* eventually the map size will be different per floor, currently it's set as a
+ * blanket quantity. To avoid undefined behaviour, please try to keep this
+ * larger than the box size. Also please note that indices 0 and MAX aren't
  * traversable.
  *
  */
 #define MAP_X 100
 #define MAP_Y 100
-
 
 #endif
