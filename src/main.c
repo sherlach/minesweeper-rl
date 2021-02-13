@@ -50,6 +50,7 @@ int init_ncurses() {
   noecho();
   curs_set(0);
   keypad(stdscr, TRUE);
+
 #ifdef COLOUR
   if (has_colors() == FALSE) {
     endwin();
@@ -66,17 +67,7 @@ int init_ncurses() {
   init_pair(6, SIX_SYM, SIX_BACK);
   init_pair(7, SEVEN_SYM, SEVEN_BACK);
   init_pair(8, EIGHT_SYM, EIGHT_BACK);
-  init_pair(9, DEF_SYM, DEF_BACK);
-  /*
-  init_pair(1, COLOR_BLUE, COLOR_BLACK);
-  init_pair(2, COLOR_GREEN, COLOR_BLACK);
-  init_pair(3, COLOR_RED, COLOR_BLACK);
-  init_pair(4, COLOR_YELLOW, COLOR_BLACK);
-  init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
-  init_pair(6, COLOR_CYAN, COLOR_BLACK);
-  init_pair(7, COLOR_BLUE, COLOR_WHITE);
-  init_pair(8, COLOR_RED, COLOR_WHITE);
-  */
+  init_pair(0, DEF_SYM, DEF_BACK);
 #endif
   return 0;
 }
@@ -93,7 +84,7 @@ int main_game(WINDOW *map, WINDOW *status) {
     state_map,
     state_invent,
     state_dead
-  }; // state_dead is relatable
+  }; // state_dead is relatable content
   int returncode = 1;
   struct map_tile levelmap[MAP_Y][MAP_X];
   int depth = 10;

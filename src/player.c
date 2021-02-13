@@ -9,15 +9,15 @@ int init_player(struct player *player) {
 
 int move_player(struct player *player, struct position newpos,
                 struct map_tile map[MAP_Y][MAP_X]) {
+  struct map_tile *cur_tile = &map[newpos.y][newpos.x];
   if (newpos.x > 0 && newpos.x < MAP_X && newpos.y > 0 && newpos.y < MAP_Y) {
-    if (map[newpos.y][newpos.x].exploding) {
+    if (cur_tile->exploding) {
       player->hp = 0;
     }
-    if (map[newpos.y][newpos.x].explored) {
-      player->position.x = newpos.x;
-      player->position.y = newpos.y;
+    if (cur_tile->explored) {
+      player->position = newpos;
     } else {
-      map[newpos.y][newpos.x].explored = true;
+      cur_tile->explored = true;
     }
   }
   return 0;

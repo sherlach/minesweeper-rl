@@ -221,6 +221,8 @@ int main_mode_display(WINDOW *win, struct map_tile map[MAP_Y][MAP_X],
         wattron(win, DEF_COLOUR);
         waddch(win, UNEXPLORED);
         wattroff(win, DEF_COLOUR);
+#else
+        waddch(win, UNEXPLORED);
 #endif
       }
     }

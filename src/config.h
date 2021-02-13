@@ -37,7 +37,7 @@
  * SYM is the symbol itself
  */
 
-#define DEF_SYM COLOR_WHITE
+#define DEF_SYM COLOR_BLACK
 #define DEF_BACK COLOR_BLACK
 #define ONE_SYM COLOR_BLUE
 #define ONE_BACK COLOR_BLACK

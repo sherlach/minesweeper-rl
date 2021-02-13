@@ -10,7 +10,7 @@ int init_map(struct map_tile map[MAP_Y][MAP_X], int depth) {
    * powerups are implemented... */
 
   // threshold = (int)(40*log((double)depth+60)-154);
-  threshold = (int)(40 * log((double)depth + 60) - 165);
+  threshold = (40 * log((double)depth + 60) - 165);
 
   /* part two: use the threshold to calculate what's going on */
 
